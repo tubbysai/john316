@@ -168,8 +168,7 @@ body::after{
     radial-gradient(ellipse at 70% 65%,rgba(0,0,0,0.04) 0%,transparent 45%);}
 
 .card-corner{display:flex;flex-direction:column;
-  align-items:flex-start;line-height:1.15;
-  position:relative;z-index:2;}
+  align-items:flex-start;line-height:1.15;}
 
 .card-corner.btm{align-items:flex-end;transform:rotate(180deg);}
 
@@ -179,9 +178,8 @@ body::after{
 .card-suit-sm{font-size:0.66rem;line-height:1;}
 
 .card-center-sym{
-  position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  font-size:2.2rem;line-height:1;pointer-events:none;z-index:1;}
+  flex:1;display:flex;align-items:center;justify-content:center;
+  font-size:2.2rem;line-height:1;pointer-events:none;}
 
 /* Row mini-cards */
 .row-card{
