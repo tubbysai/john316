@@ -1,58 +1,1412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>John 3:16 — The Gift Grid</title>
-  <style>
-    :root{
-      --gold:#d8b35c;--gold2:#fff0b7;--dark:#120b08;--panel:rgba(31,20,16,.82);--cream:#f7efd9;--ink:#2a1b14;--red:#b74a3c;--green:#80b777;--amber:#e1a63c;--blue:#141c34;
-      --card-w:92px;--card-h:132px;
-    }
-    *{box-sizing:border-box}html{min-height:100%;background:#160d09}body{margin:0;min-height:100dvh;color:#f9efd4;font-family:Georgia,"Times New Roman",serif;overflow-x:hidden;background:radial-gradient(circle at 50% 8%,rgba(255,216,126,.18),transparent 34%),radial-gradient(circle at 20% 20%,rgba(255,255,255,.06),transparent 18%),linear-gradient(135deg,#2a130d,#140b08 36%,#3b2117 64%,#160d09)}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 2px,transparent 2px 13px),repeating-linear-gradient(0deg,rgba(0,0,0,.05) 0 3px,transparent 3px 16px),radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.58));mix-blend-mode:overlay}body:after{content:"✠  In the beginning was the Word  ✠  Grace  Faith  Gift  Life  ✠";position:fixed;inset:auto -20px 8%;font-size:54px;letter-spacing:10px;color:rgba(255,231,169,.035);white-space:nowrap;transform:rotate(-8deg);pointer-events:none}
-    button{font:700 15px/1.1 Georgia,"Times New Roman",serif;cursor:pointer;border:0;border-radius:14px;padding:13px 16px;color:#23150c;background:linear-gradient(#fff1bd,#c99a35);box-shadow:0 5px 0 #75521f,0 12px 28px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.75);transition:.15s transform,.15s filter}button:hover{filter:brightness(1.08)}button:active{transform:translateY(2px);box-shadow:0 3px 0 #75521f,0 8px 18px rgba(0,0,0,.25)}button:disabled{cursor:not-allowed;opacity:.48;filter:grayscale(.35);transform:none}.secondary{color:#f8eac6;background:linear-gradient(#422920,#21120e);border:1px solid rgba(216,179,92,.55);box-shadow:0 4px 0 #100807,0 12px 22px rgba(0,0,0,.25)}.danger{background:linear-gradient(#e8c08a,#934235);color:#fff8e8}.ghost{padding:10px 12px;border-radius:999px}.screen{display:none;min-height:100dvh;padding:18px}.screen.active{display:block}.wrap{max-width:1180px;margin:0 auto;position:relative;z-index:1}.title{text-align:center;margin:8px 0 10px;font-size:clamp(30px,6vw,62px);letter-spacing:.02em;text-shadow:0 3px 20px rgba(0,0,0,.75);color:var(--gold2)}.subtitle{text-align:center;margin:0 auto 24px;max-width:760px;color:#edd9ab;font-size:clamp(16px,2vw,20px)}
-    .menu-card,.modal-card,.end-card{background:linear-gradient(145deg,rgba(50,31,22,.94),rgba(20,12,10,.96));border:1px solid rgba(216,179,92,.55);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px rgba(255,255,255,.08);padding:26px}.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.difficulty{min-height:190px;text-align:left}.difficulty strong{display:block;font-size:23px;margin-bottom:10px;color:#fff3c8}.difficulty span{display:block;color:#f0d8a1;font-weight:400;line-height:1.35}.difficulty.default{outline:2px solid var(--gold);box-shadow:0 0 34px rgba(216,179,92,.24),0 5px 0 #75521f}.stats-panel{margin-top:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat,.score-chip{background:rgba(8,5,4,.38);border:1px solid rgba(216,179,92,.28);border-radius:16px;padding:10px;text-align:center}.stat b,.score-chip b{display:block;color:var(--gold2);font-size:20px}.menu-actions{margin-top:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}.small-title{font-size:clamp(24px,4vw,40px);color:var(--gold2);margin:0}.scoreboard{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:14px 0}.score-chip{padding:8px;font-size:12px}.score-chip b{font-size:17px}.table{display:grid;grid-template-columns:330px 1fr;gap:16px}.dealer,.row{background:var(--panel);border:1px solid rgba(216,179,92,.42);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.07);padding:16px}.dealer{text-align:center}.dealer h2,.row h2{margin:0 0 10px;color:#ffefbb}.card-stage{min-height:158px;display:flex;align-items:center;justify-content:center;gap:14px}.next{opacity:.9}.next .card{transform:scale(.7)}.label{font-size:13px;color:#e4c983;text-transform:uppercase;letter-spacing:.08em}.actions{display:grid;gap:9px;margin-top:12px}.status{min-height:42px;margin-top:12px;color:#fff5ce;background:rgba(0,0,0,.28);border-radius:14px;padding:10px;border:1px solid rgba(255,255,255,.08)}.bottom-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-    .rows{display:grid;gap:12px}.row{position:relative;overflow:hidden}.row.locked{border-color:var(--gold2);box-shadow:0 0 30px rgba(255,222,123,.3),inset 0 0 26px rgba(216,179,92,.12)}.row.warn{box-shadow:0 0 22px rgba(225,166,60,.22),inset 0 0 18px rgba(225,166,60,.09)}.row.bust{animation:bust .42s}.row-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.total{font-weight:700;color:#fff3bf}.cards{display:flex;gap:8px;min-height:105px;overflow-x:auto;padding:8px 2px}.verse{color:#ffeab0;font-style:italic;margin-top:4px;min-height:20px}.complete{color:#bff0ad;font-weight:700}.card{width:var(--card-w);height:var(--card-h);flex:0 0 var(--card-w);border-radius:13px;position:relative;color:var(--ink);background:linear-gradient(135deg,#fff9e9,#ead9b6 52%,#f9f0d9);border:3px solid #d1aa4f;box-shadow:0 12px 22px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.7),inset 0 0 18px rgba(95,59,23,.1);display:flex;align-items:center;justify-content:center;animation:draw .24s ease-out;overflow:hidden}.card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(113,75,25,.3);border-radius:9px;background:radial-gradient(circle at 20% 25%,rgba(255,255,255,.55),transparent 28%),repeating-linear-gradient(45deg,rgba(72,43,17,.025) 0 1px,transparent 1px 5px)}.corner{position:absolute;font-weight:800;font-size:15px;line-height:1;text-align:center;z-index:1}.tl{top:8px;left:8px}.br{right:8px;bottom:8px;transform:rotate(180deg)}.symbol{font-size:42px;z-index:1;color:#7f1f18;text-shadow:0 1px #fff}.suit-Crowns .symbol,.suit-Crosses .symbol{color:#8c6420}.suit-Doves .symbol{color:#2e5b71}.card-name{position:absolute;bottom:21px;left:0;right:0;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.08em;z-index:1;color:#5b3a20}.back{background:linear-gradient(135deg,#10172c,#28111b);border-color:#caa24c;color:var(--gold2)}.back .symbol{color:var(--gold2)}.grace{background:linear-gradient(135deg,#fffdfa,#fff1ac 45%,#d6a531);border-color:#fff2ad;box-shadow:0 0 30px rgba(255,229,133,.55),0 12px 24px rgba(0,0,0,.38);animation:draw .24s ease-out,shine 1.8s infinite}.grace .symbol{color:#b68622}.grace .card-name{font-size:14px;color:#6d4b13}.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.68);z-index:10;padding:18px}.overlay.active{display:flex}.end-card,.modal-card{max-width:650px;width:100%;text-align:center}.modal-card{text-align:left;max-height:88dvh;overflow:auto}.modal-card h2,.end-card h2{color:var(--gold2);font-size:34px;margin:0 0 12px}.modal-card li{margin:6px 0}.end-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}.hidden{display:none!important}@keyframes draw{from{opacity:0;transform:translateY(-14px) rotateY(70deg)}to{opacity:1;transform:none}}@keyframes shine{50%{filter:brightness(1.15)}}@keyframes bust{0%,100%{background:var(--panel)}50%{background:rgba(125,24,20,.88)}}
-    @media(max-width:850px){:root{--card-w:74px;--card-h:106px}.screen{padding:12px}.menu-grid,.table{grid-template-columns:1fr}.scoreboard{grid-template-columns:repeat(2,1fr)}.stats-panel{grid-template-columns:repeat(2,1fr)}.topbar{align-items:flex-start}.dealer{order:-1}.actions{grid-template-columns:1fr}.card-stage{min-height:125px}.symbol{font-size:34px}.corner{font-size:12px}.row h2{font-size:18px}.cards{min-height:90px}.difficulty{min-height:auto}.menu-card{padding:18px}}
-    @media(min-width:851px){.actions{grid-template-columns:1fr 1fr}.actions .danger{grid-column:1/-1}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John 3:16 — The Gift Grid</title>
+<style>
+/* ===================== RESET & BASE ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --gold:#C9A84C;
+  --gold-light:#E8D5A3;
+  --cream:#F5EDD6;
+  --parchment:#F8F0DC;
+  --dark-ink:#2C1810;
+  --burgundy:#8B1A1A;
+  --steel-blue:#4A6FA5;
+  --crimson:#C41E3A;
+}
+
+html,body{height:100%;font-family:Georgia,'Times New Roman',serif;color:var(--cream);overflow-x:hidden;}
+
+body{
+  min-height:100dvh;
+  background-color:#2A1A0F;
+  background-image:
+    repeating-linear-gradient(87deg,transparent,transparent 16px,rgba(201,168,76,0.025) 16px,rgba(201,168,76,0.025) 17px),
+    repeating-linear-gradient(93deg,transparent,transparent 20px,rgba(0,0,0,0.035) 20px,rgba(0,0,0,0.035) 21px),
+    repeating-linear-gradient(179deg,transparent,transparent 55px,rgba(80,40,10,0.12) 55px,rgba(80,40,10,0.12) 56px),
+    linear-gradient(155deg,#3D2B1F 0%,#2A1A0F 25%,#4A2E18 50%,#2A1A0F 75%,#3D2B1F 100%);
+  position:relative;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,0) 35%,rgba(0,0,0,0.65) 100%);
+  pointer-events:none;z-index:0;
+}
+
+body::after{
+  content:'✝';position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:42vmin;color:rgba(201,168,76,0.028);
+  pointer-events:none;z-index:0;user-select:none;
+}
+
+/* ===================== SCREENS ===================== */
+.screen{position:relative;z-index:1;min-height:100dvh;display:flex;flex-direction:column;}
+.screen.hidden{display:none!important;}
+
+/* ===================== MENU ===================== */
+#menu-screen{align-items:center;justify-content:center;padding:16px;}
+
+.menu-wrap{width:100%;max-width:480px;
+  background:radial-gradient(ellipse at center,rgba(15,35,15,0.88) 0%,rgba(8,18,8,0.82) 100%);
+  border:2px solid var(--gold);border-radius:16px;
+  padding:32px 24px;
+  box-shadow:0 0 50px rgba(0,0,0,0.7),inset 0 0 0 1px rgba(201,168,76,0.18);
+  text-align:center;}
+
+.menu-title{font-size:1.75rem;font-weight:bold;color:var(--gold);
+  letter-spacing:0.06em;text-shadow:0 0 24px rgba(201,168,76,0.45);margin-bottom:4px;}
+
+.menu-sub-title{font-size:1.05rem;color:var(--gold);letter-spacing:0.03em;
+  margin-bottom:4px;font-weight:bold;}
+
+.menu-subtitle{font-style:italic;color:var(--cream);font-size:0.92rem;
+  margin-bottom:26px;opacity:0.8;}
+
+.diff-section h2{color:var(--gold);font-size:0.8rem;letter-spacing:0.14em;
+  text-transform:uppercase;margin-bottom:12px;}
+
+.diff-btn{
+  width:100%;padding:13px 18px;margin-bottom:9px;
+  background:linear-gradient(180deg,#2A1F0E,#1A1208);
+  border:1px solid var(--gold);border-radius:8px;
+  color:var(--gold);font-family:Georgia,serif;font-size:0.95rem;
+  letter-spacing:0.04em;cursor:pointer;text-align:left;
+  transition:background 0.2s,box-shadow 0.2s;min-height:48px;}
+
+.diff-btn:hover{background:linear-gradient(180deg,#3A2F1E,#2A2018);
+  box-shadow:0 0 12px rgba(201,168,76,0.4);}
+
+.diff-btn.selected{background:linear-gradient(180deg,#3A2F1E,#2A2018);
+  box-shadow:0 0 18px rgba(201,168,76,0.55);border-color:var(--gold-light);}
+
+.diff-name{font-weight:bold;display:block;font-size:1rem;}
+
+.diff-desc{font-size:0.75rem;opacity:0.72;display:block;
+  margin-top:2px;color:var(--cream);}
+
+.menu-scores-box{margin:18px 0;padding:12px 14px;
+  background:rgba(0,0,0,0.32);border-radius:8px;
+  border:1px solid rgba(201,168,76,0.2);}
+
+.menu-scores-box h3{color:var(--gold);font-size:0.78rem;
+  letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px;}
+
+.hs-row{display:flex;justify-content:space-between;
+  font-size:0.81rem;color:var(--cream);margin-bottom:4px;}
+
+.hs-val{color:var(--gold);font-weight:bold;}
+
+.menu-btns{display:flex;gap:10px;margin-top:18px;}
+
+.btn-begin{flex:1;padding:13px;
+  background:linear-gradient(180deg,#4A3520,#2A1A0E);
+  border:2px solid var(--gold);border-radius:8px;
+  color:var(--gold);font-family:Georgia,serif;font-size:1.05rem;
+  font-weight:bold;letter-spacing:0.07em;cursor:pointer;
+  text-transform:uppercase;transition:all 0.2s;min-height:48px;}
+
+.btn-begin:hover{background:linear-gradient(180deg,#5A4530,#3A2A1E);
+  box-shadow:0 0 18px rgba(201,168,76,0.5);}
+
+.btn-menu-help{padding:13px 18px;
+  background:linear-gradient(180deg,#2A1F0E,#1A1208);
+  border:1px solid var(--gold);border-radius:8px;
+  color:var(--gold);font-family:Georgia,serif;font-size:1rem;
+  cursor:pointer;transition:all 0.2s;min-height:48px;}
+
+.btn-menu-help:hover{box-shadow:0 0 10px rgba(201,168,76,0.35);
+  background:linear-gradient(180deg,#3A2F1E,#2A2018);}
+
+/* ===================== GAME SCREEN ===================== */
+#game-screen{max-width:900px;margin:0 auto;width:100%;padding:0 6px 8px;}
+
+/* SCOREBOARD */
+#scoreboard{
+  display:flex;gap:6px;padding:9px 12px;
+  background:rgba(0,0,0,0.55);
+  border-bottom:1px solid rgba(201,168,76,0.28);
+  flex-wrap:wrap;justify-content:center;
+  position:sticky;top:0;z-index:10;backdrop-filter:blur(4px);}
+
+.sb-item{display:flex;align-items:center;gap:4px;
+  font-size:0.82rem;color:var(--cream);white-space:nowrap;}
+
+.sb-lbl{opacity:0.65;}
+.sb-val{color:var(--gold);font-weight:bold;}
+.sb-item.warn .sb-val{color:#FF8C00;}
+.sb-div{color:rgba(201,168,76,0.35);font-size:0.75rem;align-self:center;}
+
+/* DEALER AREA */
+#dealer-area{
+  display:flex;flex-direction:column;align-items:center;
+  padding:18px 10px 8px;position:relative;min-height:180px;}
+
+.dealer-label{font-size:0.76rem;color:var(--gold);
+  letter-spacing:0.14em;text-transform:uppercase;
+  margin-bottom:10px;opacity:0.75;}
+
+.card-stage{position:relative;width:100px;height:140px;margin:0 auto;}
+
+/* ===================== CARDS ===================== */
+.card{
+  width:100px;height:140px;border-radius:10px;
+  background:var(--parchment);
+  border:2px solid var(--gold);
+  box-shadow:inset 0 0 0 1px var(--gold-light),
+    0 4px 20px rgba(0,0,0,0.5),0 1px 4px rgba(0,0,0,0.3);
+  position:relative;display:flex;flex-direction:column;
+  justify-content:space-between;padding:6px;
+  user-select:none;flex-shrink:0;
+  background-image:
+    radial-gradient(ellipse at 30% 38%,rgba(255,255,255,0.18) 0%,transparent 55%),
+    radial-gradient(ellipse at 70% 65%,rgba(0,0,0,0.04) 0%,transparent 45%);}
+
+.card-corner{display:flex;flex-direction:column;
+  align-items:flex-start;line-height:1.15;}
+
+.card-corner.btm{align-items:flex-end;transform:rotate(180deg);}
+
+.card-rank{font-size:0.7rem;font-weight:bold;
+  font-family:Georgia,serif;color:var(--dark-ink);line-height:1;}
+
+.card-suit-sm{font-size:0.66rem;line-height:1;}
+
+.card-center-sym{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:2.2rem;line-height:1;pointer-events:none;}
+
+/* Row mini-cards */
+.row-card{
+  width:48px;height:67px;border-radius:6px;
+  border:1px solid var(--gold);
+  box-shadow:inset 0 0 0 1px rgba(232,213,163,0.5),
+    0 2px 8px rgba(0,0,0,0.4);
+  background:var(--parchment);position:relative;
+  display:flex;flex-direction:column;
+  justify-content:space-between;padding:3px;
+  flex-shrink:0;
+  background-image:radial-gradient(ellipse at 30% 38%,rgba(255,255,255,0.15) 0%,transparent 55%);}
+
+.row-card .card-rank{font-size:0.52rem;}
+.row-card .card-suit-sm{font-size:0.48rem;}
+.row-card .card-center-sym{font-size:1.15rem;}
+
+/* Current card size scaling */
+@media(min-width:420px){
+  .card-stage{width:118px;height:165px;}
+  .card-stage .card{width:118px;height:165px;}
+  .card-stage .card .card-rank{font-size:0.78rem;}
+  .card-stage .card .card-suit-sm{font-size:0.72rem;}
+  .card-stage .card .card-center-sym{font-size:2.6rem;}
+}
+
+@media(min-width:640px){
+  .card-stage{width:130px;height:182px;}
+  .card-stage .card{width:130px;height:182px;}
+  .card-stage .card .card-rank{font-size:0.84rem;}
+  .card-stage .card .card-suit-sm{font-size:0.78rem;}
+  .card-stage .card .card-center-sym{font-size:2.9rem;}
+}
+
+/* CARD BACK */
+.card-back{
+  background:#0D1B2A;
+  border:2px solid var(--gold);
+  box-shadow:inset 0 0 0 3px rgba(201,168,76,0.28),
+    inset 0 0 0 6px rgba(13,27,42,0.85),
+    0 4px 20px rgba(0,0,0,0.6);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;}
+
+.card-back::before{
+  content:'✝';font-size:2.4rem;color:var(--gold);
+  opacity:0.82;z-index:2;position:relative;}
+
+.card-back::after{
+  content:'';position:absolute;inset:7px;
+  border:1px solid rgba(201,168,76,0.38);border-radius:6px;
+  background:repeating-linear-gradient(
+    45deg,transparent,transparent 4px,
+    rgba(201,168,76,0.055) 4px,rgba(201,168,76,0.055) 5px);}
+
+/* GRACE CARD */
+.card-grace{
+  background:linear-gradient(135deg,#FFFFF0,#FFF8DC,#F5DEB3);
+  border:2px solid var(--gold);
+  box-shadow:0 0 22px rgba(201,168,76,0.85),
+    0 4px 20px rgba(0,0,0,0.4);
+  display:flex;align-items:center;justify-content:center;
+  animation:graceShimmer 1.5s ease-in-out infinite;}
+
+.grace-text{
+  text-align:center;color:var(--gold);
+  font-style:italic;font-family:Georgia,serif;
+  font-size:0.9rem;font-weight:bold;
+  text-shadow:0 0 12px rgba(201,168,76,0.65);
+  line-height:1.5;}
+
+/* Next-card preview (Easy mode) */
+.next-preview{
+  position:absolute;top:10px;right:-14px;
+  width:60px;height:84px;border-radius:7px;
+  opacity:0.72;z-index:-1;
+  transform:rotate(7deg);transform-origin:bottom center;
+  box-shadow:0 4px 14px rgba(0,0,0,0.55);pointer-events:none;}
+
+.next-preview .card-rank{font-size:0.5rem;}
+.next-preview .card-suit-sm{font-size:0.46rem;}
+.next-preview .card-center-sym{font-size:1.1rem;}
+
+/* ===================== ACTION BUTTONS ===================== */
+#action-buttons{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:7px;padding:8px 10px;
+  max-width:480px;margin:0 auto;width:100%;}
+
+.action-btn{
+  padding:11px 8px;min-height:48px;
+  background:linear-gradient(180deg,#2A1F0E,#1A1208);
+  border:1px solid var(--gold);border-radius:8px;
+  color:var(--gold);font-family:Georgia,serif;font-size:0.8rem;
+  font-weight:bold;letter-spacing:0.05em;text-transform:uppercase;
+  cursor:pointer;transition:background 0.15s,box-shadow 0.15s,transform 0.1s;
+  line-height:1.3;}
+
+.action-btn:hover:not(:disabled){
+  background:linear-gradient(180deg,#3A2F1E,#2A2018);
+  box-shadow:0 0 10px rgba(201,168,76,0.4);}
+
+.action-btn:active:not(:disabled){transform:scale(0.97);}
+
+.action-btn:disabled{opacity:0.4;cursor:not-allowed;box-shadow:none;}
+
+.btn-discard{border-color:rgba(180,70,70,0.55);color:#E8A0A0;}
+.btn-discard:hover:not(:disabled){box-shadow:0 0 10px rgba(196,30,58,0.3);}
+
+/* ===================== STATUS ===================== */
+#status-msg{
+  min-height:34px;padding:7px 16px;
+  text-align:center;font-style:italic;
+  color:var(--cream);font-size:0.86rem;opacity:0.9;}
+
+/* ===================== ROW PANELS ===================== */
+#row-panels{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:7px;padding:6px 8px;}
+
+@media(max-width:560px){
+  #row-panels{grid-template-columns:1fr;}
+}
+
+.row-panel{
+  background:rgba(0,0,0,0.36);backdrop-filter:blur(2px);
+  border:1px solid rgba(201,168,76,0.28);
+  border-radius:12px;padding:12px;
+  min-height:130px;
+  transition:box-shadow 0.3s,border-color 0.3s;
+  position:relative;}
+
+.row-panel.warning{
+  box-shadow:0 0 14px rgba(255,165,0,0.52);
+  border-color:rgba(255,165,0,0.5);}
+
+.row-panel.locked{
+  box-shadow:0 0 22px rgba(201,168,76,0.72);
+  border-color:var(--gold);}
+
+.row-panel.busting{animation:bustFlash 0.42s ease-out;}
+
+.row-title{font-size:0.73rem;color:var(--gold);
+  text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:4px;font-weight:bold;}
+
+.row-total-line{font-size:0.95rem;color:var(--cream);
+  margin-bottom:7px;font-weight:bold;}
+
+.row-total-num{color:var(--gold);}
+
+.row-cards-wrap{
+  display:flex;gap:4px;overflow-x:auto;
+  padding-bottom:3px;flex-wrap:nowrap;
+  scrollbar-width:thin;scrollbar-color:rgba(201,168,76,0.3) transparent;
+  min-height:69px;align-items:center;}
+
+.row-lock-badge{
+  position:absolute;top:8px;right:10px;
+  color:var(--gold);font-size:0.95rem;}
+
+.row-verse-text{
+  margin-top:7px;font-style:italic;
+  font-size:0.76rem;color:var(--cream);opacity:0.82;
+  border-top:1px solid rgba(201,168,76,0.2);
+  padding-top:5px;display:none;line-height:1.5;}
+
+.row-panel.locked .row-verse-text{display:block;}
+
+/* ===================== FOOTER ===================== */
+#game-footer{
+  display:flex;justify-content:center;gap:9px;
+  padding:9px 8px;margin-top:auto;}
+
+.footer-btn{
+  padding:9px 15px;min-height:44px;
+  background:linear-gradient(180deg,#1A1208,#100C06);
+  border:1px solid rgba(201,168,76,0.45);border-radius:6px;
+  color:rgba(201,168,76,0.78);font-family:Georgia,serif;
+  font-size:0.8rem;cursor:pointer;letter-spacing:0.04em;
+  transition:all 0.2s;}
+
+.footer-btn:hover{
+  border-color:var(--gold);color:var(--gold);
+  box-shadow:0 0 8px rgba(201,168,76,0.28);}
+
+/* ===================== OVERLAYS ===================== */
+.overlay{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;background:rgba(0,0,0,0.87);
+  backdrop-filter:blur(5px);
+  animation:fadeInOverlay 0.45s ease-out;}
+
+.overlay.hidden{display:none!important;}
+
+.ov-card{
+  width:100%;max-width:520px;
+  background:radial-gradient(ellipse at center,#1A2810 0%,#0D1A0A 100%);
+  border:2px solid var(--gold);border-radius:16px;
+  padding:28px 24px;text-align:center;
+  box-shadow:0 0 60px rgba(0,0,0,0.85),
+    inset 0 0 0 1px rgba(201,168,76,0.18);
+  max-height:90dvh;overflow-y:auto;}
+
+.ov-card.ov-loss{
+  background:radial-gradient(ellipse at center,#1A0A0A 0%,#0D0606 100%);
+  border-color:#7A1818;
+  box-shadow:0 0 60px rgba(120,24,24,0.45),
+    inset 0 0 0 1px rgba(120,24,24,0.28);}
+
+.ov-title{font-size:1.9rem;color:var(--gold);font-weight:bold;
+  margin-bottom:14px;text-shadow:0 0 22px rgba(201,168,76,0.5);}
+
+.ov-title.loss{color:#C84040;text-shadow:0 0 18px rgba(200,64,64,0.4);}
+
+.ov-verse{font-style:italic;color:var(--cream);font-size:0.92rem;
+  line-height:1.65;margin-bottom:16px;
+  border:1px solid rgba(201,168,76,0.2);border-radius:8px;
+  padding:13px;background:rgba(0,0,0,0.22);}
+
+.ov-ref{color:var(--gold);font-size:0.82rem;margin-top:8px;font-weight:bold;}
+
+.score-breakdown{
+  background:rgba(0,0,0,0.3);border-radius:8px;
+  padding:13px;margin:14px 0;text-align:left;}
+
+.score-breakdown h3{color:var(--gold);font-size:0.79rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  margin-bottom:9px;text-align:center;}
+
+.sb-line{display:flex;justify-content:space-between;
+  font-size:0.83rem;color:var(--cream);margin-bottom:4px;}
+
+.sb-line .sv{color:var(--gold);}
+
+.sb-line.total{
+  border-top:1px solid rgba(201,168,76,0.28);
+  padding-top:5px;margin-top:5px;
+  font-weight:bold;font-size:0.93rem;}
+
+.ov-best{font-size:0.8rem;color:var(--cream);opacity:0.78;margin-bottom:9px;}
+.ov-best span{color:var(--gold);font-weight:bold;}
+
+.ov-reason{font-size:0.93rem;color:var(--cream);
+  margin-bottom:14px;line-height:1.55;}
+
+.final-score{font-size:1.35rem;color:var(--gold);
+  font-weight:bold;margin-bottom:12px;}
+
+.ov-btns{display:flex;gap:10px;margin-top:18px;justify-content:center;}
+
+.ov-btn{flex:1;max-width:175px;padding:11px 14px;min-height:48px;
+  background:linear-gradient(180deg,#2A1F0E,#1A1208);
+  border:1px solid var(--gold);border-radius:8px;
+  color:var(--gold);font-family:Georgia,serif;font-size:0.93rem;
+  font-weight:bold;letter-spacing:0.05em;cursor:pointer;
+  text-transform:uppercase;transition:all 0.2s;}
+
+.ov-btn:hover{
+  background:linear-gradient(180deg,#3A2F1E,#2A2018);
+  box-shadow:0 0 12px rgba(201,168,76,0.4);}
+
+/* ===================== MODAL ===================== */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.82);
+  display:flex;align-items:center;justify-content:center;padding:14px;}
+
+.modal-overlay.hidden{display:none!important;}
+
+.modal-box{
+  width:100%;max-width:480px;max-height:88dvh;
+  background:#1A1208;border:2px solid var(--gold);
+  border-radius:14px;padding:22px;overflow-y:auto;
+  position:relative;box-shadow:0 0 44px rgba(0,0,0,0.85);}
+
+.modal-hdr{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:16px;border-bottom:1px solid rgba(201,168,76,0.28);
+  padding-bottom:11px;}
+
+.modal-ttl{color:var(--gold);font-size:1.15rem;
+  font-weight:bold;letter-spacing:0.05em;}
+
+.modal-close{
+  background:none;border:1px solid rgba(201,168,76,0.38);
+  border-radius:4px;color:var(--gold);font-size:1.05rem;
+  width:31px;height:31px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;}
+
+.modal-close:hover{background:rgba(201,168,76,0.14);border-color:var(--gold);}
+
+.modal-body p{color:var(--cream);font-size:0.87rem;
+  line-height:1.66;margin-bottom:13px;}
+
+.modal-body strong{color:var(--gold);}
+
+.modal-body ul{color:var(--cream);font-size:0.84rem;
+  padding-left:18px;margin-bottom:13px;line-height:1.72;}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes cardSlideIn{
+  0%{opacity:0;transform:translateY(-32px) scale(0.88);}
+  55%{transform:translateY(5px) scale(1.025);}
+  100%{opacity:1;transform:translateY(0) scale(1);}
+}
+
+@keyframes cardFlip{
+  0%{transform:scaleX(0);opacity:0;}
+  50%{opacity:0.5;}
+  100%{transform:scaleX(1);opacity:1;}
+}
+
+@keyframes rowLockGlow{
+  0%{box-shadow:0 0 5px rgba(201,168,76,0.3);}
+  22%{box-shadow:0 0 32px rgba(201,168,76,0.95),0 0 65px rgba(201,168,76,0.4);}
+  44%{box-shadow:0 0 12px rgba(201,168,76,0.55);}
+  66%{box-shadow:0 0 32px rgba(201,168,76,0.95),0 0 65px rgba(201,168,76,0.4);}
+  88%{box-shadow:0 0 12px rgba(201,168,76,0.55);}
+  100%{box-shadow:0 0 22px rgba(201,168,76,0.72);}
+}
+
+@keyframes bustFlash{
+  0%{box-shadow:0 0 0 transparent;}
+  18%{box-shadow:0 0 28px rgba(200,30,58,0.95),inset 0 0 14px rgba(200,30,58,0.35);}
+  36%{box-shadow:0 0 4px rgba(200,30,58,0.18);}
+  55%{box-shadow:0 0 28px rgba(200,30,58,0.95),inset 0 0 14px rgba(200,30,58,0.35);}
+  73%{box-shadow:0 0 4px rgba(200,30,58,0.18);}
+  100%{box-shadow:0 0 28px rgba(200,30,58,0.95),inset 0 0 14px rgba(200,30,58,0.35);}
+}
+
+@keyframes graceShimmer{
+  0%,100%{box-shadow:0 0 16px rgba(201,168,76,0.62);filter:brightness(1);}
+  50%{box-shadow:0 0 34px rgba(201,168,76,1),0 0 65px rgba(201,168,76,0.38);filter:brightness(1.09);}
+}
+
+@keyframes fadeInOverlay{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* ===================== UTILS ===================== */
+.hidden{display:none!important;}
+</style>
 </head>
 <body>
-  <main id="menu" class="screen active"><div class="wrap"><h1 class="title">John 3:16 — The Gift Grid</h1><p class="subtitle">A premium biblical card challenge: complete three rows to exactly 16 and reveal the promise of John 3:16.</p><section class="menu-card" aria-label="Main menu"><div class="menu-grid"><button class="difficulty" onclick="startGame('easy')"><strong>Start Easy</strong><span>Grace Mode — forgiving, preview the next card, and begin with 3 Grace Tokens.</span></button><button class="difficulty default" onclick="startGame('medium')"><strong>Start Medium</strong><span>Faith Mode — balanced challenge and the recommended way to play.</span></button><button class="difficulty" onclick="startGame('hard')"><strong>Start Hard</strong><span>Narrow Path — fewer discards, fewer tokens, and each row needs at least 3 cards.</span></button></div><div class="stats-panel" id="menuStats"></div><div class="menu-actions"><button class="secondary" onclick="showHowToPlay()">How to Play</button></div></section></div></main>
-  <main id="game" class="screen"><div class="wrap"><div class="topbar"><h1 class="small-title">John 3:16 — The Gift Grid</h1><button class="secondary ghost" aria-label="How to Play" onclick="showHowToPlay()">?</button></div><section class="scoreboard" id="scoreboard"></section><div class="table"><section class="dealer" aria-live="polite"><h2>Dealer</h2><div class="card-stage"><div id="currentCard"></div><div id="nextPreview" class="next"></div></div><div class="actions"><button id="rowBtn0" onclick="placeCard(0)">Place in God Loved</button><button id="rowBtn1" onclick="placeCard(1)">Place in He Gave</button><button id="rowBtn2" onclick="placeCard(2)">Place in We Believe</button><button id="discardBtn" class="danger" onclick="discardCard()">Discard to Temptation</button></div><div id="status" class="status">Choose a difficulty to begin.</div><div class="bottom-actions"><button class="secondary" onclick="resetGame()">Start Over</button><button class="secondary" onclick="backToMenu()">Back to Menu</button><button class="secondary" onclick="showHowToPlay()">How to Play</button></div></section><section class="rows" id="rows"></section></div></div></main>
-  <div id="endOverlay" class="overlay" role="dialog" aria-modal="true"><div class="end-card"><h2 id="endTitle"></h2><div id="endText"></div><div class="end-actions"><button id="againBtn" onclick="resetGame()">Play Again</button><button class="secondary" onclick="backToMenu()">Back to Menu</button><button class="secondary" onclick="showHowToPlay()">How to Play</button></div></div></div>
-  <div id="howModal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="howTitle"><div class="modal-card"><h2 id="howTitle">How to Play</h2><p>The dealer draws one card at a time.</p><p>Place each card into one of the three rows:</p><ul><li>God Loved</li><li>He Gave</li><li>We Believe</li></ul><p>Each row must add up exactly to 16. When a row reaches 16, it locks. Complete all three rows to win and reveal John 3:16.</p><p>You may discard cards into the Temptation pile, but be careful:</p><ul><li>Easy Mode: Temptation limit is 12</li><li>Medium Mode: Temptation limit is 8</li><li>Hard Mode: Temptation limit is 5</li></ul><p>If Temptation reaches the limit, you lose.</p><p>Grace Tokens save you when a row goes over 16. If you bust a row and have a Grace Token, the card that caused the bust is removed and 1 Grace Token is used.</p><p>A Grace Card gives you +1 Grace Token when drawn.</p><p>You lose if:</p><ul><li>The deck runs out</li><li>Temptation reaches the limit</li><li>You bust a row with no Grace Tokens left</li></ul><p><strong>Hard Mode extra rule:</strong><br>Each row must have at least 3 cards before it can lock at 16.</p><div class="end-actions"><button onclick="hideHowToPlay()">Close</button></div></div></div>
+
+<!-- ========== MENU SCREEN ========== -->
+<div id="menu-screen" class="screen">
+  <div style="display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:16px;">
+    <div class="menu-wrap">
+      <div class="menu-title">✝ John 3:16 ✝</div>
+      <div class="menu-sub-title">The Gift Grid</div>
+      <div class="menu-subtitle">"For God so loved the world…"</div>
+
+      <div class="diff-section">
+        <h2>Choose Your Path</h2>
+        <button class="diff-btn" id="diff-easy" onclick="selectDifficulty('easy')" aria-label="Easy difficulty — Grace Mode">
+          <span class="diff-name">Easy — Grace Mode</span>
+          <span class="diff-desc">A=1, J=1, Q=2, K=3 · 4 Grace Cards · Next card preview · 12 discard limit · 3 starting tokens</span>
+        </button>
+        <button class="diff-btn selected" id="diff-medium" onclick="selectDifficulty('medium')" aria-label="Medium difficulty — Faith Mode, recommended">
+          <span class="diff-name">Medium — Faith Mode ★</span>
+          <span class="diff-desc">A=1, J=11, Q=12, K=13 · 2 Grace Cards · No preview · 8 discard limit · 2 starting tokens</span>
+        </button>
+        <button class="diff-btn" id="diff-hard" onclick="selectDifficulty('hard')" aria-label="Hard difficulty — Narrow Path">
+          <span class="diff-name">Hard — Narrow Path</span>
+          <span class="diff-desc">A=1, J=11, Q=12, K=13 · 1 Grace Card · 3-card row minimum · 5 discard limit · 1 starting token</span>
+        </button>
+      </div>
+
+      <div class="menu-scores-box">
+        <h3>High Scores</h3>
+        <div class="hs-row"><span>Easy Best:</span><span class="hs-val" id="hs-easy">—</span></div>
+        <div class="hs-row"><span>Medium Best:</span><span class="hs-val" id="hs-medium">—</span></div>
+        <div class="hs-row"><span>Hard Best:</span><span class="hs-val" id="hs-hard">—</span></div>
+        <div class="hs-row"><span>Current Streak:</span><span class="hs-val" id="hs-streak">0</span></div>
+        <div class="hs-row"><span>Best Streak:</span><span class="hs-val" id="hs-streak-best">0</span></div>
+      </div>
+
+      <div class="menu-btns">
+        <button class="btn-begin" onclick="startGame(selectedDifficulty)" aria-label="Begin the game with selected difficulty">Begin</button>
+        <button class="btn-menu-help" onclick="showHowToPlay()" aria-label="How to Play">?</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== GAME SCREEN ========== -->
+<div id="game-screen" class="screen hidden">
+
+  <div id="scoreboard" role="status" aria-live="polite" aria-label="Game statistics">
+    <div class="sb-item">
+      <span class="sb-lbl">Score:</span>
+      <span class="sb-val" id="sb-score">1000</span>
+    </div>
+    <div class="sb-div">|</div>
+    <div class="sb-item">
+      <span class="sb-lbl">Cards Left:</span>
+      <span class="sb-val" id="sb-cards">52</span>
+    </div>
+    <div class="sb-div">|</div>
+    <div class="sb-item">
+      <span class="sb-lbl">✦ Grace:</span>
+      <span class="sb-val" id="sb-grace">0</span>
+    </div>
+    <div class="sb-div">|</div>
+    <div class="sb-item" id="sb-temp-item">
+      <span class="sb-lbl">Temptation:</span>
+      <span class="sb-val" id="sb-temp">0/8</span>
+    </div>
+  </div>
+
+  <div id="dealer-area">
+    <div class="dealer-label">Current Card</div>
+    <div class="card-stage" id="card-stage">
+      <div id="current-card-slot"></div>
+    </div>
+    <div id="dealer-hint" style="font-size:0.72rem;color:rgba(201,168,76,0.45);letter-spacing:0.08em;margin-top:6px;min-height:16px;text-align:center;"></div>
+  </div>
+
+  <div id="action-buttons">
+    <button class="action-btn" id="btn-row0" onclick="placeCard(0)" aria-label="Place current card into God Loved row" disabled>Place: God Loved</button>
+    <button class="action-btn" id="btn-row1" onclick="placeCard(1)" aria-label="Place current card into He Gave row" disabled>Place: He Gave</button>
+    <button class="action-btn" id="btn-row2" onclick="placeCard(2)" aria-label="Place current card into We Believe row" disabled>Place: We Believe</button>
+    <button class="action-btn btn-discard" id="btn-discard" onclick="discardCard()" aria-label="Discard current card to Temptation pile" disabled>Discard ✗</button>
+  </div>
+
+  <div id="status-msg" role="status" aria-live="polite"></div>
+
+  <div id="row-panels">
+    <div class="row-panel" id="rp-0">
+      <div class="row-title">God Loved</div>
+      <div class="row-total-line">Total: <span class="row-total-num" id="rt-0">0</span> / 16</div>
+      <div class="row-cards-wrap" id="rc-0"></div>
+      <div class="row-verse-text">"For God so loved the world…"</div>
+    </div>
+    <div class="row-panel" id="rp-1">
+      <div class="row-title">He Gave</div>
+      <div class="row-total-line">Total: <span class="row-total-num" id="rt-1">0</span> / 16</div>
+      <div class="row-cards-wrap" id="rc-1"></div>
+      <div class="row-verse-text">"That He gave His only begotten Son…"</div>
+    </div>
+    <div class="row-panel" id="rp-2">
+      <div class="row-title">We Believe</div>
+      <div class="row-total-line">Total: <span class="row-total-num" id="rt-2">0</span> / 16</div>
+      <div class="row-cards-wrap" id="rc-2"></div>
+      <div class="row-verse-text">"That whoever believes in Him…"</div>
+    </div>
+  </div>
+
+  <div id="game-footer">
+    <button class="footer-btn" onclick="resetGame()" aria-label="Start Over with the same difficulty">Start Over</button>
+    <button class="footer-btn" onclick="backToMenu()" aria-label="Return to Main Menu">Back to Menu</button>
+    <button class="footer-btn" onclick="showHowToPlay()" aria-label="How to Play">?</button>
+  </div>
+</div>
+
+<!-- ========== VICTORY OVERLAY ========== -->
+<div class="overlay hidden" id="victory-overlay">
+  <div class="ov-card">
+    <div class="ov-title">Victory! ✝</div>
+    <div class="ov-verse">
+      "For God so loved the world, that He gave His only begotten Son, that whoever
+      believes in Him shall not perish, but have everlasting life."
+      <div class="ov-ref">— John 3:16</div>
+    </div>
+    <div class="ov-best" id="vict-best"></div>
+    <div class="score-breakdown" id="vict-breakdown">
+      <h3>Score Breakdown</h3>
+    </div>
+    <div class="ov-btns">
+      <button class="ov-btn" onclick="resetGame()" aria-label="Play Again">Play Again</button>
+      <button class="ov-btn" onclick="backToMenu()" aria-label="Back to Menu">Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== GAME OVER OVERLAY ========== -->
+<div class="overlay hidden" id="gameover-overlay">
+  <div class="ov-card ov-loss">
+    <div class="ov-title loss">Game Over</div>
+    <div class="ov-reason" id="go-reason"></div>
+    <div class="final-score" id="go-score"></div>
+    <div class="ov-btns">
+      <button class="ov-btn" onclick="resetGame()" aria-label="Try Again">Try Again</button>
+      <button class="ov-btn" onclick="backToMenu()" aria-label="Back to Menu">Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HOW TO PLAY MODAL ========== -->
+<div class="modal-overlay hidden" id="howtoplay-modal"
+     role="dialog" aria-modal="true" aria-labelledby="modal-ttl-id">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-ttl" id="modal-ttl-id">How to Play</div>
+      <button class="modal-close" onclick="hideHowToPlay()" aria-label="Close How to Play">×</button>
+    </div>
+    <div class="modal-body">
+      <p>The dealer draws one card at a time. Place each card into one of three sacred rows —
+      <strong>God Loved</strong>, <strong>He Gave</strong>, or <strong>We Believe</strong>.
+      Each row must add up to <strong>exactly 16</strong>. Complete all three rows to reveal John 3:16.</p>
+
+      <p><strong>Discarding:</strong> Send a card to the Temptation pile instead of placing it.
+      Too many discards ends the game.</p>
+      <ul>
+        <li>Easy: 12 discard limit</li>
+        <li>Medium: 8 discard limit</li>
+        <li>Hard: 5 discard limit</li>
+      </ul>
+
+      <p><strong>Grace Tokens:</strong> If a row goes over 16, a Grace Token removes the offending
+      card and saves the row. No tokens left = game over. Each bust costs −50 score.</p>
+
+      <p><strong>Grace Cards:</strong> Special cards in the deck that instantly give you +1 Grace Token
+      when drawn. They auto-advance to the next card.</p>
+
+      <p><strong>Card Values:</strong></p>
+      <ul>
+        <li>Easy — Alpha(A)=1, Disciple(J)=1, Faithful(Q)=2, King(K)=3, Numbers=face value</li>
+        <li>Medium/Hard — Alpha(A)=1, Disciple(J)=11, Faithful(Q)=12, King(K)=13, Numbers=face value</li>
+      </ul>
+
+      <p><strong>Hard Mode:</strong> Each row must contain at least 3 cards before it can lock at 16.
+      If a row reaches 16 with fewer than 3 cards, play continues and bust rules apply.</p>
+
+      <p><strong>Easy Mode Preview:</strong> The next card in the deck peeks out behind the current card.</p>
+
+      <p><strong>Scoring:</strong> Start at 1000. Lose −10 per card drawn, −25 per discard, −50 per Grace
+      Token used on a bust. Win bonuses: +50 Easy / +100 Medium / +200 Hard, +100 for zero discards,
+      +100 for zero Grace Tokens used.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-'use strict';
-const DIFFICULTIES={easy:{name:'Easy — Grace Mode',grace:3,limit:12,preview:true,graceCards:4,bonus:50,lowFaces:true,minCards:0},medium:{name:'Medium — Faith Mode',grace:2,limit:8,preview:false,graceCards:2,bonus:100,lowFaces:false,minCards:0},hard:{name:'Hard — Narrow Path',grace:1,limit:5,preview:false,graceCards:1,bonus:200,lowFaces:false,minCards:3}};
-const rowNames=['God Loved','He Gave','We Believe'];
-const verse=['For God so loved the world…','That He gave His only begotten Son…','That whoever believes in Him…'];
-let state,highScores=loadHighScores();
-function safeGet(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}}function safeSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-function loadHighScores(){return safeGet('john316GiftGridScores',{best:{easy:0,medium:0,hard:0},fewest:{easy:null,medium:null,hard:null},currentStreak:0,bestStreak:0})}
-function createDeck(){const suits=[['Crosses','✝'],['Doves','♢'],['Crowns','♛'],['Hearts','♥']],ranks=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];let deck=[];for(const [suit,symbol] of suits){for(const rank of ranks){deck.push({type:'normal',rank,suit,symbol,label:{A:'Alpha',J:'Disciple',Q:'Faithful',K:'King'}[rank]||rank,value:cardValue(rank)})}}for(let i=0;i<DIFFICULTIES[state.difficulty].graceCards;i++)deck.push({type:'grace',rank:'G',suit:'Grace',symbol:'✦',label:'Grace',value:0});return deck}
-function cardValue(rank){if(rank==='A')return 1;if(rank==='J')return DIFFICULTIES[state.difficulty].lowFaces?1:11;if(rank==='Q')return DIFFICULTIES[state.difficulty].lowFaces?2:12;if(rank==='K')return DIFFICULTIES[state.difficulty].lowFaces?3:13;return Number(rank)}
-function shuffleDeck(deck=state.deck){for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]]}return deck}
-function startGame(difficulty='medium'){state={difficulty,deck:[],current:null,rows:rowNames.map(()=>({cards:[],total:0,locked:false,bust:false})),score:1000,cardsDrawn:0,temptation:0,grace:DIFFICULTIES[difficulty].grace,graceUsed:0,gameOver:false,message:'Dealer shuffles the deck.'};state.deck=shuffleDeck(createDeck());document.getElementById('menu').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('endOverlay').classList.remove('active');drawCard();updateUI()}
-function resetGame(){startGame(state?.difficulty||'medium')}
-function backToMenu(){document.getElementById('game').classList.remove('active');document.getElementById('endOverlay').classList.remove('active');document.getElementById('menu').classList.add('active');highScores=loadHighScores();renderMenuStats()}
-function drawCard(){if(state.gameOver)return;if(!state.deck.length){endGame('lose','The deck ran out before all rows were complete.');return}let guard=0;do{state.current=state.deck.shift();state.cardsDrawn++;updateScore();if(state.current.type==='grace')handleGraceCard();guard++}while(!state.gameOver&&state.current?.type==='grace'&&state.deck.length&&guard<20);if(state.current?.type==='grace'&&!state.deck.length){endGame('lose','The deck ran out before all rows were complete.');return}if(!state.gameOver&&state.current?.type==='normal')state.message=state.message.includes('Grace received')?state.message+' Dealer drew a card.':'Dealer drew a card.';updateUI()}
-function handleGraceCard(){state.grace++;state.message='Grace received. +1 Grace Token.';/* Sound placeholder: soft chime for Grace Card. */state.current=null;updateUI()}
-function placeCard(rowIndex){if(state.gameOver||!state.current||state.current.type!=='normal')return;const row=state.rows[rowIndex];if(row.locked)return;row.cards.push(state.current);row.total+=state.current.value;state.message=`Placed in ${rowNames[rowIndex]}.`;if(row.total>16){row.bust=true;if(state.grace>0){row.cards.pop();row.total-=state.current.value;state.grace--;state.graceUsed++;updateScore();state.message='Grace saved that row. One Grace Token used.';/* Sound placeholder: gentle rescue swell. */setTimeout(()=>{row.bust=false;updateUI()},420)}else{updateUI();endGame('lose','That row went over 16, and no Grace Tokens remained.');return}}state.current=null;checkRowLock(rowIndex);if(!checkWin()&&!state.gameOver)setTimeout(drawCard,150);updateUI()}
-function discardCard(){if(state.gameOver||!state.current||state.current.type!=='normal')return;state.temptation++;state.message=state.temptation>=DIFFICULTIES[state.difficulty].limit-1?'Careful — Temptation is almost full.':'Temptation increased.';state.current=null;updateScore();if(state.temptation>=DIFFICULTIES[state.difficulty].limit){endGame('lose','Temptation reached the limit.');return}setTimeout(drawCard,120);updateUI()}
-function updateScore(){state.score=Math.max(0,1000-(state.cardsDrawn*10)-(state.temptation*25)-(state.graceUsed*50))}
-function checkRowLock(rowIndex){const row=state.rows[rowIndex],cfg=DIFFICULTIES[state.difficulty];if(row.total===16&&!row.locked){if(cfg.minCards&&row.cards.length<cfg.minCards){state.message='Hard Mode requires at least 3 cards in a row before it can lock.';return}row.locked=true;state.message=`Row complete! ${rowNames[rowIndex]} is locked at 16.`;/* Sound placeholder: warm completion bell. */}}
-function checkWin(){if(state.rows.every(r=>r.locked&&r.total===16)){endGame('win','Victory! John 3:16 completed.');return true}return false}
-function endGame(type,reason){state.gameOver=true;if(type==='win'){let bonus=DIFFICULTIES[state.difficulty].bonus;if(state.temptation===0)bonus+=100;if(state.graceUsed===0)bonus+=100;state.score=Math.max(0,state.score+bonus);saveHighScore(true)}else{saveHighScore(false)}updateUI();const win=type==='win';document.getElementById('endTitle').textContent=win?'Victory!':'Game Over';document.getElementById('againBtn').textContent=win?'Play Again':'Try Again';document.getElementById('endText').innerHTML=win?`<p>For God so loved the world, that He gave His only begotten Son…</p><p>That whoever believes in Him shall not perish, but have everlasting life.</p><h3>John 3:16</h3><p><strong>Final score:</strong> ${state.score}</p><p><strong>Best ${state.difficulty} score:</strong> ${highScores.best[state.difficulty]||0}</p><p><strong>Fewest ${state.difficulty} discards on a win:</strong> ${highScores.fewest[state.difficulty]??'—'}</p>`:`<p>${reason}</p><p><strong>Final score:</strong> ${state.score}</p>`;state.message=(win?'Victory! John 3:16 completed.':'Game Over: '+reason);document.getElementById('endOverlay').classList.add('active')}
-function saveHighScore(won){if(won){highScores.best[state.difficulty]=Math.max(highScores.best[state.difficulty]||0,state.score);const f=highScores.fewest[state.difficulty];if(f===null||state.temptation<f)highScores.fewest[state.difficulty]=state.temptation;highScores.currentStreak=(highScores.currentStreak||0)+1;highScores.bestStreak=Math.max(highScores.bestStreak||0,highScores.currentStreak)}else highScores.currentStreak=0;safeSet('john316GiftGridScores',highScores)}
-function updateUI(){if(!state)return;document.getElementById('scoreboard').innerHTML=[['Score',state.score],['Drawn',state.cardsDrawn],['Cards Left',state.deck.length],['Grace',state.grace],['Grace Used',state.graceUsed],['Temptation',`${state.temptation} / ${DIFFICULTIES[state.difficulty].limit}`],['Difficulty',DIFFICULTIES[state.difficulty].name]].map(s=>`<div class="score-chip">${s[0]}<b>${s[1]}</b></div>`).join('');document.getElementById('currentCard').innerHTML=state.current?cardHTML(state.current):'<div class="card back"><span class="symbol">✠</span><span class="card-name">Deck</span></div>';const preview=DIFFICULTIES[state.difficulty].preview&&state.deck.find(c=>c.type==='normal');document.getElementById('nextPreview').innerHTML=preview?`<div class="label">Next</div>${cardHTML(preview)}`:'';document.getElementById('status').textContent=state.message;document.getElementById('rows').innerHTML=state.rows.map((r,i)=>`<article class="row ${r.locked?'locked':''} ${r.total>=13&&!r.locked?'warn':''} ${r.bust?'bust':''}"><div class="row-head"><h2>${rowNames[i]}</h2><div class="total">${r.locked?'Complete — 16':r.total+' / 16'}</div></div><div class="cards">${r.cards.map(cardHTML).join('')}</div><div class="verse">${r.locked?verse[i]:r.total>=13?'Near the mark — choose carefully.':''}</div></article>`).join('');for(let i=0;i<3;i++)document.getElementById('rowBtn'+i).disabled=state.gameOver||!state.current||state.rows[i].locked;document.getElementById('discardBtn').disabled=state.gameOver||!state.current}
-function cardHTML(c){if(c.type==='grace')return `<div class="card grace"><span class="corner tl">✦</span><span class="symbol">✦</span><span class="card-name">Grace</span><span class="corner br">✦</span></div>`;return `<div class="card suit-${c.suit}" aria-label="${c.label} of ${c.suit}, value ${c.value}"><span class="corner tl">${c.rank}<br>${c.symbol}</span><span class="symbol">${c.symbol}</span><span class="card-name">${c.label} of ${c.suit}<br>Value ${c.value}</span><span class="corner br">${c.rank}<br>${c.symbol}</span></div>`}
-function showHowToPlay(){document.getElementById('howModal').classList.add('active');setTimeout(()=>document.querySelector('#howModal button')?.focus(),0)}
-function hideHowToPlay(){document.getElementById('howModal').classList.remove('active')}
-function renderMenuStats(){const h=highScores;document.getElementById('menuStats').innerHTML=`<div class="stat">Best Easy<b>${h.best.easy||0}</b></div><div class="stat">Best Medium<b>${h.best.medium||0}</b></div><div class="stat">Best Hard<b>${h.best.hard||0}</b></div><div class="stat">Win Streak<b>${h.currentStreak||0}</b></div><div class="stat">Best Streak<b>${h.bestStreak||0}</b></div><div class="stat">Fewest Easy Discards<b>${h.fewest.easy??'—'}</b></div><div class="stat">Fewest Medium Discards<b>${h.fewest.medium??'—'}</b></div><div class="stat">Fewest Hard Discards<b>${h.fewest.hard??'—'}</b></div>`}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')hideHowToPlay()});document.getElementById('howModal').addEventListener('click',e=>{if(e.target.id==='howModal')hideHowToPlay()});renderMenuStats();
+// =====================================================================
+// GAME STATE — all mutable game state lives here
+// =====================================================================
+const gameState = {
+  deck: [],
+  currentCard: null,
+  rows: [[], [], []],
+  rowTotals: [0, 0, 0],
+  rowLocked: [false, false, false],
+  graceTokens: 0,
+  graceTokensUsed: 0,
+  temptationCount: 0,
+  cardsDrawn: 0,
+  score: 1000,
+  difficulty: null,
+  isGameActive: false,
+  isAnimating: false,
+  consecutiveGraceCards: 0
+};
+
+// =====================================================================
+// DIFFICULTY CONFIGURATION
+// =====================================================================
+const DIFF_CFG = {
+  easy:   { startTokens:3, tempLimit:12, preview:true,  faceVals:{A:1,J:1, Q:2, K:3},  graceCount:4, minCards:0 },
+  medium: { startTokens:2, tempLimit:8,  preview:false, faceVals:{A:1,J:11,Q:12,K:13}, graceCount:2, minCards:0 },
+  hard:   { startTokens:1, tempLimit:5,  preview:false, faceVals:{A:1,J:11,Q:12,K:13}, graceCount:1, minCards:3 }
+};
+
+const SUITS = [
+  { name:'crosses', sym:'✝', color:'#8B1A1A' },
+  { name:'doves',   sym:'🕊', color:'#4A6FA5' },
+  { name:'crowns',  sym:'♛', color:'#C9A84C' },
+  { name:'hearts',  sym:'♥', color:'#C41E3A' }
+];
+
+const RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+
+let selectedDifficulty = 'medium';
+
+// In-memory fallback scores (used when localStorage is unavailable)
+const MEM = {
+  best_easy:null, best_medium:null, best_hard:null,
+  discards_easy:null, discards_medium:null, discards_hard:null,
+  streak_current:0, streak_best:0
+};
+
+// =====================================================================
+// localStorage HELPERS
+// =====================================================================
+function saveHighScore() {
+  const d    = gameState.difficulty;
+  const s    = gameState.score;
+  const disc = gameState.temptationCount;
+  try {
+    const bk   = 'john316_best_' + d;
+    const dk   = 'john316_discards_' + d;
+    const prev = parseInt(localStorage.getItem(bk)  || '0');
+    const prevD= parseInt(localStorage.getItem(dk)  || '9999');
+    if (s    > prev ) localStorage.setItem(bk, String(s));
+    if (disc < prevD) localStorage.setItem(dk, String(disc));
+    const sc = parseInt(localStorage.getItem('john316_streak_current') || '0') + 1;
+    const sb = Math.max(sc, parseInt(localStorage.getItem('john316_streak_best') || '0'));
+    localStorage.setItem('john316_streak_current', String(sc));
+    localStorage.setItem('john316_streak_best',    String(sb));
+    MEM['best_'     + d] = Math.max(s,    prev);
+    MEM['discards_' + d] = Math.min(disc, prevD);
+    MEM.streak_current   = sc;
+    MEM.streak_best      = sb;
+  } catch(e) {
+    const bk   = 'best_'     + d;
+    const dk   = 'discards_' + d;
+    const prev = MEM[bk] !== null ? MEM[bk] : 0;
+    const prevD= MEM[dk] !== null ? MEM[dk] : 9999;
+    if (s    > prev ) MEM[bk] = s;
+    if (disc < prevD) MEM[dk] = disc;
+    MEM.streak_current = (MEM.streak_current || 0) + 1;
+    MEM.streak_best    = Math.max(MEM.streak_current, MEM.streak_best || 0);
+  }
+}
+
+function loadHighScores() {
+  try {
+    const read = (k, def) => { const v = localStorage.getItem(k); return v !== null ? parseInt(v) : def; };
+    MEM.best_easy        = read('john316_best_easy',        null);
+    MEM.best_medium      = read('john316_best_medium',      null);
+    MEM.best_hard        = read('john316_best_hard',        null);
+    MEM.discards_easy    = read('john316_discards_easy',    null);
+    MEM.discards_medium  = read('john316_discards_medium',  null);
+    MEM.discards_hard    = read('john316_discards_hard',    null);
+    MEM.streak_current   = read('john316_streak_current',   0);
+    MEM.streak_best      = read('john316_streak_best',      0);
+  } catch(e) { /* retain defaults */ }
+}
+
+function resetStreak() {
+  try { localStorage.setItem('john316_streak_current', '0'); } catch(e) {}
+  MEM.streak_current = 0;
+}
+
+// =====================================================================
+// DECK FUNCTIONS
+// =====================================================================
+function createDeck() {
+  const cfg  = DIFF_CFG[gameState.difficulty];
+  const deck = [];
+  for (const suit of SUITS) {
+    for (const rank of RANKS) {
+      deck.push({ rank, suit, isGrace:false, value:getCardValue(rank) });
+    }
+  }
+  for (let i = 0; i < cfg.graceCount; i++) {
+    deck.push({ rank:'GRACE', suit:null, isGrace:true, value:0 });
+  }
+  return deck;
+}
+
+function shuffleDeck() {
+  const d = gameState.deck;
+  for (let i = d.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [d[i], d[j]] = [d[j], d[i]];
+  }
+}
+
+function getCardValue(rank) {
+  const fv = DIFF_CFG[gameState.difficulty].faceVals;
+  if (rank === 'A') return fv.A;
+  if (rank === 'J') return fv.J;
+  if (rank === 'Q') return fv.Q;
+  if (rank === 'K') return fv.K;
+  return parseInt(rank);
+}
+
+// =====================================================================
+// GAME CONTROL
+// =====================================================================
+function startGame(difficulty) {
+  gameState.difficulty = difficulty;
+  const cfg = DIFF_CFG[difficulty];
+
+  gameState.deck                 = createDeck();
+  shuffleDeck();
+  gameState.currentCard          = null;
+  gameState.rows                 = [[], [], []];
+  gameState.rowTotals            = [0, 0, 0];
+  gameState.rowLocked            = [false, false, false];
+  gameState.graceTokens          = cfg.startTokens;
+  gameState.graceTokensUsed      = 0;
+  gameState.temptationCount      = 0;
+  gameState.cardsDrawn           = 0;
+  gameState.score                = 1000;
+  gameState.isGameActive         = true;
+  gameState.isAnimating          = false;
+  gameState.consecutiveGraceCards = 0;
+
+  // Switch screens
+  document.getElementById('menu-screen').classList.add('hidden');
+  document.getElementById('game-screen').classList.remove('hidden');
+  document.getElementById('victory-overlay').classList.add('hidden');
+  document.getElementById('gameover-overlay').classList.add('hidden');
+
+  // Reset row panel visual states
+  for (let i = 0; i < 3; i++) {
+    const p = document.getElementById('rp-' + i);
+    p.classList.remove('warning', 'locked', 'busting');
+    p.style.animation = '';
+    document.getElementById('rc-' + i).innerHTML = '';
+    document.getElementById('rt-' + i).textContent = '0';
+    const badge = p.querySelector('.row-lock-badge');
+    if (badge) badge.textContent = '';
+  }
+
+  updateUI();
+  setStatus('The game begins. Place each card in a row to reach exactly 16.');
+  drawNextCard();
+}
+
+function resetGame() {
+  if (!gameState.difficulty) return;
+  startGame(gameState.difficulty);
+}
+
+function backToMenu() {
+  gameState.isGameActive = false;
+  document.getElementById('game-screen').classList.add('hidden');
+  document.getElementById('victory-overlay').classList.add('hidden');
+  document.getElementById('gameover-overlay').classList.add('hidden');
+  document.getElementById('menu-screen').classList.remove('hidden');
+  loadHighScores();
+  updateMenuScores();
+}
+
+// =====================================================================
+// CARD DRAW
+// =====================================================================
+function drawCard() {
+  if (gameState.deck.length === 0) return null;
+  return gameState.deck.pop();
+}
+
+function drawNextCard() {
+  if (!gameState.isGameActive) return;
+
+  if (gameState.deck.length === 0) {
+    if (!checkWin()) endGame('loss', 'deckEmpty');
+    return;
+  }
+
+  const card = drawCard();
+  if (!card) {
+    if (!checkWin()) endGame('loss', 'deckEmpty');
+    return;
+  }
+
+  if (card.isGrace) {
+    gameState.consecutiveGraceCards++;
+    gameState.currentCard = card;
+    const capped = gameState.consecutiveGraceCards >= 5;
+    if (capped) gameState.consecutiveGraceCards = 0;
+    handleGraceCard(capped);
+    return;
+  }
+
+  gameState.consecutiveGraceCards = 0;
+  gameState.currentCard = card;
+  gameState.cardsDrawn++;
+  updateScore('draw', 10);
+  updateUI();
+  setStatus('Dealer drew a card. Place it in a row or discard.');
+}
+
+function handleGraceCard(wasCapped) {
+  if (!gameState.isGameActive) return;
+
+  gameState.graceTokens++;
+  gameState.cardsDrawn++;
+  updateScore('draw', 10);
+  // SOUND: play 'grace_received.mp3'
+
+  updateUI();
+  setStatus('✦ Grace Card received! +1 Grace Token awarded.');
+
+  setTimeout(() => {
+    if (gameState.isGameActive) drawNextCard();
+  }, wasCapped ? 600 : 1200);
+}
+
+// =====================================================================
+// CARD ACTIONS
+// =====================================================================
+function placeCard(rowIndex) {
+  if (!gameState.isGameActive || gameState.isAnimating) return;
+  if (!gameState.currentCard) return;
+  if (gameState.rowLocked[rowIndex]) return;
+
+  const card     = gameState.currentCard;
+  const newTotal = gameState.rowTotals[rowIndex] + card.value;
+
+  if (newTotal > 16) {
+    // BUST
+    // SOUND: play 'bust_warning.mp3'
+    triggerBustAnim(rowIndex);
+
+    if (gameState.graceTokens > 0) {
+      gameState.graceTokens--;
+      gameState.graceTokensUsed++;
+      updateScore('grace', 50);
+      gameState.currentCard = null;
+      updateUI();
+      setStatus('Grace saved that row. One Grace Token used.');
+      setTimeout(() => { if (gameState.isGameActive) drawNextCard(); }, 900);
+    } else {
+      gameState.currentCard = null;
+      updateUI();
+      setTimeout(() => endGame('loss', 'bust'), 520);
+    }
+    return;
+  }
+
+  // Place the card
+  gameState.rows[rowIndex].push(card);
+  gameState.rowTotals[rowIndex] = newTotal;
+  gameState.currentCard = null;
+
+  // SOUND: play 'card_place.mp3'
+  setStatus('Placed in ' + getRowName(rowIndex) + '. Total: ' + newTotal + ' / 16.');
+
+  checkRowLock(rowIndex);
+  updateUI();
+
+  if (checkWin()) {
+    endGame('win', null);
+    return;
+  }
+
+  if (gameState.isGameActive) {
+    setTimeout(() => { if (gameState.isGameActive) drawNextCard(); }, 320);
+  }
+}
+
+function discardCard() {
+  if (!gameState.isGameActive || gameState.isAnimating) return;
+  if (!gameState.currentCard) return;
+
+  gameState.temptationCount++;
+  gameState.currentCard = null;
+  updateScore('discard', 25);
+
+  const lim = DIFF_CFG[gameState.difficulty].tempLimit;
+
+  if (gameState.temptationCount >= lim) {
+    updateUI();
+    setStatus('Temptation reached the limit. (' + gameState.temptationCount + ' / ' + lim + ')');
+    setTimeout(() => endGame('loss', 'temptation'), 500);
+    return;
+  }
+
+  if (gameState.temptationCount >= lim - 2) {
+    setStatus('Careful — Temptation is almost full. (' + gameState.temptationCount + ' / ' + lim + ')');
+  } else {
+    setStatus('Temptation increased. (' + gameState.temptationCount + ' / ' + lim + ')');
+  }
+
+  updateUI();
+  setTimeout(() => { if (gameState.isGameActive) drawNextCard(); }, 320);
+}
+
+// =====================================================================
+// ROW LOGIC
+// =====================================================================
+function checkRowLock(rowIndex) {
+  const total = gameState.rowTotals[rowIndex];
+  const count = gameState.rows[rowIndex].length;
+  const cfg   = DIFF_CFG[gameState.difficulty];
+
+  if (total !== 16) return;
+
+  if (cfg.minCards > 0 && count < cfg.minCards) {
+    setStatus('Hard Mode: A row needs at least 3 cards before it can lock.');
+    return;
+  }
+
+  gameState.rowLocked[rowIndex] = true;
+  // SOUND: play 'row_complete.mp3'
+
+  const panel = document.getElementById('rp-' + rowIndex);
+  panel.classList.remove('warning');
+  panel.classList.add('locked');
+  panel.style.animation = 'none';
+  void panel.offsetWidth; // trigger reflow
+  panel.style.animation = 'rowLockGlow 1.8s ease-out forwards';
+
+  setStatus('Row complete! ' + getRowName(rowIndex) + ' is locked at 16.');
+}
+
+function checkWin() {
+  return gameState.rowLocked[0] && gameState.rowLocked[1] && gameState.rowLocked[2];
+}
+
+function checkLoss() {
+  const cfg = DIFF_CFG[gameState.difficulty];
+  if (gameState.temptationCount >= cfg.tempLimit) { endGame('loss', 'temptation'); return true; }
+  if (gameState.deck.length === 0 && !checkWin()) { endGame('loss', 'deckEmpty');  return true; }
+  return false;
+}
+
+// =====================================================================
+// END GAME
+// =====================================================================
+function endGame(type, reason) {
+  gameState.isGameActive = false;
+
+  if (type === 'win') {
+    const diffBonus = { easy:50, medium:100, hard:200 }[gameState.difficulty];
+    const noDisc    = gameState.temptationCount   === 0 ? 100 : 0;
+    const noGrace   = gameState.graceTokensUsed   === 0 ? 100 : 0;
+    gameState.score += diffBonus + noDisc + noGrace;
+    // SOUND: play 'victory_fanfare.mp3'
+    saveHighScore();
+    showVictoryScreen(diffBonus, noDisc, noGrace);
+  } else {
+    // SOUND: play 'game_over.mp3'
+    resetStreak();
+    showGameOverScreen(reason);
+  }
+}
+
+// =====================================================================
+// UI — MAIN UPDATER
+// =====================================================================
+function updateUI() {
+  updateScoreboard();
+  updateRowPanels();
+  updateDealerArea();
+  updateActionButtons();
+}
+
+function updateScoreboard() {
+  const cfg = DIFF_CFG[gameState.difficulty];
+  if (!cfg) return;
+  const lim = cfg.tempLimit;
+
+  document.getElementById('sb-score').textContent = gameState.score;
+  document.getElementById('sb-cards').textContent = gameState.deck.length;
+  document.getElementById('sb-grace').textContent = gameState.graceTokens;
+  document.getElementById('sb-temp').textContent  = gameState.temptationCount + '/' + lim;
+
+  const ti = document.getElementById('sb-temp-item');
+  if (gameState.temptationCount > 0 && gameState.temptationCount >= lim - 2) {
+    ti.classList.add('warn');
+  } else {
+    ti.classList.remove('warn');
+  }
+}
+
+function updateRowPanels() {
+  for (let i = 0; i < 3; i++) {
+    const panel = document.getElementById('rp-' + i);
+    document.getElementById('rt-' + i).textContent = gameState.rowTotals[i];
+
+    if (!gameState.rowLocked[i]) {
+      panel.classList.remove('locked');
+      if (gameState.rowTotals[i] >= 13) {
+        panel.classList.add('warning');
+      } else {
+        panel.classList.remove('warning');
+      }
+    }
+
+    // Lock badge
+    let badge = panel.querySelector('.row-lock-badge');
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.className = 'row-lock-badge';
+      panel.appendChild(badge);
+    }
+    badge.textContent = gameState.rowLocked[i] ? '✓' : '';
+
+    // Render placed cards
+    const wrap = document.getElementById('rc-' + i);
+    wrap.innerHTML = '';
+    for (const card of gameState.rows[i]) {
+      wrap.appendChild(buildCardEl(card, 'row-card'));
+    }
+  }
+}
+
+function updateDealerArea() {
+  const slot  = document.getElementById('current-card-slot');
+  const stage = document.getElementById('card-stage');
+  const hint  = document.getElementById('dealer-hint');
+
+  // Remove existing preview
+  const oldPrev = stage.querySelector('.next-preview');
+  if (oldPrev) oldPrev.remove();
+
+  slot.innerHTML = '';
+
+  if (!gameState.currentCard) {
+    hint.textContent = '';
+    return;
+  }
+
+  const cardEl = buildCardEl(gameState.currentCard, '');
+  cardEl.style.animation = 'cardSlideIn 0.42s ease-out';
+  gameState.isAnimating = true;
+  cardEl.addEventListener('animationend', () => {
+    gameState.isAnimating = false;
+    cardEl.style.animation = '';
+  }, { once:true });
+  slot.appendChild(cardEl);
+
+  // Easy mode next-card preview
+  const cfg = DIFF_CFG[gameState.difficulty];
+  if (cfg && cfg.preview && gameState.deck.length > 0) {
+    const nextCard = gameState.deck[gameState.deck.length - 1];
+    let prev;
+    if (nextCard.isGrace) {
+      prev = document.createElement('div');
+      prev.className = 'card card-back next-preview';
+    } else {
+      prev = buildCardEl(nextCard, 'next-preview');
+    }
+    stage.appendChild(prev);
+    hint.textContent = 'Next card preview (Easy mode)';
+  } else {
+    hint.textContent = '';
+  }
+}
+
+function updateActionButtons() {
+  const has  = !!gameState.currentCard;
+  const actv = gameState.isGameActive;
+
+  for (let i = 0; i < 3; i++) {
+    document.getElementById('btn-row' + i).disabled =
+      !has || !actv || gameState.rowLocked[i];
+  }
+  document.getElementById('btn-discard').disabled = !has || !actv;
+}
+
+function updateScore(event, value) {
+  if (event === 'draw'   ) gameState.score = Math.max(0, gameState.score - value);
+  if (event === 'discard') gameState.score = Math.max(0, gameState.score - value);
+  if (event === 'grace'  ) gameState.score = Math.max(0, gameState.score - value);
+  const el = document.getElementById('sb-score');
+  if (el) el.textContent = gameState.score;
+}
+
+// =====================================================================
+// CARD RENDERING
+// =====================================================================
+function buildCardEl(card, extraClass) {
+  const div = document.createElement('div');
+  div.className = 'card' + (extraClass ? ' ' + extraClass : '');
+
+  if (card.isGrace) {
+    div.classList.add('card-grace');
+    const g = document.createElement('div');
+    g.className = 'grace-text';
+    g.innerHTML = '✦ Grace ✦<br><span style="font-size:0.68em;letter-spacing:0.1em;">GIFT CARD</span>';
+    div.appendChild(g);
+    return div;
+  }
+
+  const suit  = card.suit;
+  const rank  = card.rank;
+  const color = suit ? suit.color : '#C9A84C';
+  const sym   = suit ? suit.sym   : '✝';
+  const label = getRankLabel(rank);
+
+  div.innerHTML =
+    '<div class="card-corner">' +
+      '<span class="card-rank" style="color:#2C1810">' + label + '</span>' +
+      '<span class="card-suit-sm" style="color:' + color + '">' + sym + '</span>' +
+    '</div>' +
+    '<div class="card-center-sym" style="color:' + color + '">' + sym + '</div>' +
+    '<div class="card-corner btm">' +
+      '<span class="card-rank" style="color:#2C1810">' + label + '</span>' +
+      '<span class="card-suit-sm" style="color:' + color + '">' + sym + '</span>' +
+    '</div>';
+
+  return div;
+}
+
+function getRankLabel(rank) {
+  return { A:'A', J:'J', Q:'Q', K:'K' }[rank] !== undefined
+    ? ({ A:'A', J:'J', Q:'Q', K:'K' }[rank])
+    : rank;
+}
+
+// =====================================================================
+// ANIMATIONS
+// =====================================================================
+function triggerBustAnim(rowIndex) {
+  const p = document.getElementById('rp-' + rowIndex);
+  p.classList.remove('busting');
+  void p.offsetWidth;
+  p.classList.add('busting');
+  setTimeout(() => p.classList.remove('busting'), 500);
+}
+
+// =====================================================================
+// STATUS MESSAGE
+// =====================================================================
+function setStatus(msg) {
+  const el = document.getElementById('status-msg');
+  if (el) el.textContent = msg;
+}
+
+// =====================================================================
+// VICTORY & GAME-OVER SCREENS
+// =====================================================================
+function showVictoryScreen(diffBonus, noDiscBonus, noGraceBonus) {
+  document.getElementById('victory-overlay').classList.remove('hidden');
+
+  const baseScore = gameState.score - diffBonus - noDiscBonus - noGraceBonus;
+  const bestScore = MEM['best_' + gameState.difficulty];
+
+  const bestEl = document.getElementById('vict-best');
+  bestEl.innerHTML = bestScore !== null
+    ? 'Best score (' + gameState.difficulty + '): <span>' + bestScore + '</span>'
+    : '';
+
+  let html = '<h3>Score Breakdown</h3>';
+  html += '<div class="sb-line"><span>Base score</span><span class="sv">' + baseScore + '</span></div>';
+  html += '<div class="sb-line"><span>Difficulty bonus (' + gameState.difficulty + ')</span><span class="sv">+' + diffBonus + '</span></div>';
+  if (noDiscBonus)  html += '<div class="sb-line"><span>No discards bonus</span><span class="sv">+' + noDiscBonus + '</span></div>';
+  if (noGraceBonus) html += '<div class="sb-line"><span>No grace used bonus</span><span class="sv">+' + noGraceBonus + '</span></div>';
+  html += '<div class="sb-line total"><span>Final Score</span><span class="sv">' + gameState.score + '</span></div>';
+
+  document.getElementById('vict-breakdown').innerHTML = html;
+  setStatus('Victory! John 3:16 completed.');
+}
+
+function showGameOverScreen(reason) {
+  document.getElementById('gameover-overlay').classList.remove('hidden');
+
+  const msgs = {
+    deckEmpty:  'The deck ran out before all rows were completed.',
+    temptation: 'Temptation reached the limit. Too many cards were discarded.',
+    bust:       'A row went over 16, and no Grace Tokens remained.'
+  };
+
+  document.getElementById('go-reason').textContent = msgs[reason] || 'The game has ended.';
+  document.getElementById('go-score').textContent  = 'Final Score: ' + gameState.score;
+  updateUI();
+}
+
+// =====================================================================
+// HOW TO PLAY MODAL
+// =====================================================================
+let _prevFocus = null;
+
+function showHowToPlay() {
+  _prevFocus = document.activeElement;
+  const m = document.getElementById('howtoplay-modal');
+  m.classList.remove('hidden');
+  setTimeout(() => {
+    const cb = m.querySelector('.modal-close');
+    if (cb) cb.focus();
+  }, 50);
+}
+
+function hideHowToPlay() {
+  document.getElementById('howtoplay-modal').classList.add('hidden');
+  if (_prevFocus) { try { _prevFocus.focus(); } catch(e) {} }
+}
+
+// Focus trap
+document.getElementById('howtoplay-modal').addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { hideHowToPlay(); return; }
+  if (e.key !== 'Tab') return;
+  const focusable = Array.from(this.querySelectorAll(
+    'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'
+  )).filter(el => !el.disabled);
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last  = focusable[focusable.length - 1];
+  if (e.shiftKey) {
+    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+  } else {
+    if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+  }
+});
+
+// =====================================================================
+// MENU HELPERS
+// =====================================================================
+function selectDifficulty(diff) {
+  selectedDifficulty = diff;
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('diff-' + diff).classList.add('selected');
+}
+
+function updateMenuScores() {
+  const fmt = v => (v !== null && v !== undefined) ? String(v) : '—';
+  document.getElementById('hs-easy').textContent        = fmt(MEM.best_easy);
+  document.getElementById('hs-medium').textContent      = fmt(MEM.best_medium);
+  document.getElementById('hs-hard').textContent        = fmt(MEM.best_hard);
+  document.getElementById('hs-streak').textContent      = String(MEM.streak_current || 0);
+  document.getElementById('hs-streak-best').textContent = String(MEM.streak_best || 0);
+}
+
+// =====================================================================
+// HELPERS
+// =====================================================================
+function getRowName(idx) {
+  return ['God Loved', 'He Gave', 'We Believe'][idx];
+}
+
+// =====================================================================
+// GLOBAL KEYBOARD HANDLER
+// =====================================================================
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const m = document.getElementById('howtoplay-modal');
+    if (!m.classList.contains('hidden')) hideHowToPlay();
+  }
+});
+
+// =====================================================================
+// INIT
+// =====================================================================
+loadHighScores();
+updateMenuScores();
 </script>
 </body>
 </html>
